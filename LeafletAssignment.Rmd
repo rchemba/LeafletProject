@@ -1,0 +1,142 @@
+---
+title: "Interactive Mapp Application"
+author: "Chemba Ranganathan"
+date: "October 17, 2016"
+output: html_document
+---
+## Sports Teams in San Francisco Bay Area
+This map shows the stadiums of the national sports teams in  the bay area (San Francisco, California region). Clicking on the links will take you to the home page of these teams.
+
+The bay area teams are
+
+1. Basket Ball team
+    a.  Golden State Warriors 
+    
+2. Baseball teams
+    a. San Francisco Giants
+    b. Oakland A's
+    
+3. Football teams
+    a. San Francisco 49Ers
+    b. Oakland Raiders
+    
+4. Ice Hockey Team
+    a. San Jose Sharks
+    
+## R Code for Generating the map
+
+```{r message=FALSE}
+library(leaflet)
+
+## Custom icons for the sports teams
+warriorsIcon <- makeIcon(
+iconUrl = "http://i.cdn.turner.com/nba/nba/.element/img/1.0/teamsites/logos/teamlogos_500x500/gsw.png",
+iconWidth = 60,
+iconHeight = 60,
+iconAnchorX = 1,
+iconAnchorY = 20
+)
+
+sf49ErsIcon <- makeIcon(
+iconUrl = "http://content.sportslogos.net/logos/7/179/thumbs/17994552009.gif",
+iconWidth = 30,
+iconHeight = 30,
+iconAnchorX = 1,
+iconAnchorY = 20
+)
+
+raidersIcon <- makeIcon(
+iconUrl = "http://content.sportslogos.net/logos/7/163/thumbs/g9mgk6x3ge26t44cccm9oq1vl.gif",
+iconWidth = 40,
+iconHeight = 40,
+iconAnchorX = 1,
+iconAnchorY = 5
+)
+
+athleticsIcon <- makeIcon(
+iconUrl = "http://www.sports-logos-screensavers.com/images/Img1176.gif",
+iconWidth = 40,
+iconHeight = 40,
+iconAnchorX = 15,
+iconAnchorY = 40
+)
+
+giantsIcon <- makeIcon(
+iconUrl = "http://www.sports-logos-screensavers.com/images/Img1208.gif",
+iconWidth = 30,
+iconHeight = 30,
+iconAnchorX = 1,
+iconAnchorY = 20
+)
+
+sharksIcon <- makeIcon(
+iconUrl = "http://sportsteamhistory.com/images/nhllogos/san_jose_sharks.png",
+iconWidth = 30,
+iconHeight = 30,
+iconAnchorX = 1,
+iconAnchorY = 20
+)
+
+## Home page site for all the sports teams
+warriorsSite <-
+"<a href = 'http://nba.com/warriors'> Home of the Warriors </a>"
+sf49ErsSite <-
+"<a href ='http://www.49ers.com/'> Home of the 49ers </a>"
+raidersSite <-
+"<a href ='http://www.raiders.com/'> Home of the Raiders </a>"
+giantsSite <-
+"<a href ='http://sanfrancisco.giants.mlb.com/'> Home of the SF Giants </a>"
+atheleticsSite <- "<a href =''> Home of Oakland A's </a>"
+sharksSite <-
+"<a href ='https://www.nhl.com/sharks/'> Home of the Sharks </a>"
+
+## Create the data frame that contains the location information of the
+## home stadiums of the various sports teams
+sportsStadiums <-
+data.frame(
+name = c(
+"Golden State Warriors",
+"Oakland Raiders",
+"Oakland A's",
+"San Francisco 49ers",
+"San Jose Sharks",
+"San Francisco Giants"
+),
+lat = c(
+37.7502917,
+37.7515946,
+37.7515946,
+37.403411,
+37.3325855,
+37.7785951
+),
+long = c(
+-122.2052381,
+-122.2027345,-122.2027345,
+-121.9715312,-121.9032461,
+-122.3914585
+)
+)
+## Create the map using leaflet
+sportsStadiumsMap <- sportsStadiums %>%
+leaflet() %>%
+addTiles() %>%
+addMarkers(-122.2052381, 37.7502917, icon = warriorsIcon, popup = warriorsSite) %>%
+addMarkers(-122.2027345, 37.7515946, icon = raidersIcon, popup = raidersSite) %>%
+addMarkers(-122.2027345, 37.7515946, icon = athleticsIcon, popup = atheleticsSite) %>%
+addMarkers(-121.9715312, 37.403411, icon = sf49ErsIcon, popup = sf49ErsSite) %>%
+addMarkers(-121.9032461, 37.3325855, icon = sharksIcon, popup = sharksSite) %>%
+addMarkers(-122.3914585, 37.7785951, icon = giantsIcon, popup = giantsSite) %>%
+addMarkers(clusterOption = markerClusterOptions()) 
+
+```
+
+## Map Output
+
+Map of the bay area showing the different sporting venues.
+
+```{r}
+## Render the map
+sportsStadiumsMap
+
+```
