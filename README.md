@@ -18,3 +18,6 @@ The bay area teams shown in the map are
     
 ## Usage:
 Some of the sports stadiums are clustered at one place. To access the home page of these teams, please click on the green icon and then click on the team icons.
+
+## R Code:
+R code is available in the R Mark down file.

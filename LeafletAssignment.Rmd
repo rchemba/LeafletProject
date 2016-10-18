@@ -4,6 +4,12 @@ author: "Chemba Ranganathan"
 date: "October 17, 2016"
 output: html_document
 ---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
 ## Sports Teams in San Francisco Bay Area
 This map shows the stadiums of the national sports teams in  the bay area (San Francisco, California region). Clicking on the links will take you to the home page of these teams.
 
@@ -23,8 +29,6 @@ The bay area teams are
 4. Ice Hockey Team
     a. San Jose Sharks
     
-## R Code for Generating the map
-
 ```{r message=FALSE}
 library(leaflet)
 
@@ -133,7 +137,7 @@ addMarkers(clusterOption = markerClusterOptions())
 
 ## Map Output
 
-Map of the bay area showing the different sporting venues.
+Map of the bay area showing the different sporting venues. Click on the icons to go to the team home page.
 
 ```{r}
 ## Render the map
